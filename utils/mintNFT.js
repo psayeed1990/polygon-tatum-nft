@@ -20,4 +20,4 @@ const mintNFT = async (req, res) => {
     return res.json(data);
 };
 
-export default mintNFT;
+module.exports = mintNFT;

@@ -1,7 +1,7 @@
 const express = require("express");
 const deployPolyNFTSmCon = require("./utils/deployPolyNFTSmCon");
 const { default: mintNFT } = require("./utils/mintNFT");
-const upload = require("./utils/upload");
+const fileUpload = require("./utils/fileUpload");
 const { default: uploadToIPFS } = require("./utils/uploadToIPFS");
 const app = express();
 
@@ -15,7 +15,7 @@ app.use(express.json());
 app.post("/create-smart-contract", deployPolyNFTSmCon);
 
 //@POST ipfs upload
-app.post("/ipfs-upload", upload, uploadToIPFS);
+app.post("/ipfs-upload", fileUpload, uploadToIPFS);
 
 //@POST  Mint NFT to the Smart Contract
 app.post("/mint-nft", mintNFT);

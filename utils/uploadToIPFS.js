@@ -28,4 +28,4 @@ const uploadToIPFS = async (req, res) => {
     return res.json(metadataLink);
 };
 
-export default uploadToIPFS;
+module.exports = uploadToIPFS;
