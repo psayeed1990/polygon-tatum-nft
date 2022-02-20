@@ -7,4 +7,4 @@ const upload = multer({
     },
 });
 
-module.exports = upload.single("image");
+module.exports = fileUpload = upload.single("image");
