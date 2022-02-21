@@ -20,8 +20,11 @@
     "homepage": "https://github.com/psayeed1990/polygon-tatum-nft#readme",
     "dependencies": {
         "@tatumio/tatum": "^1.31.1",
+        "@tatumio/tatum-kms": "^4.0.9",
+        "cors": "^2.8.5",
         "dotenv": "^16.0.0",
         "express": "^4.17.2",
+        "global": "^4.4.0",
         "multer": "^1.4.4"
     },
     "devDependencies": {

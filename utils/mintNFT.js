@@ -1,3 +1,5 @@
+const fetch = require("node-fetch");
+
 const mintNFT = async (req, res) => {
     const response = await fetch("https://api-eu1.tatum.io/v3/nft/mint", {
         method: "POST",
@@ -7,15 +9,18 @@ const mintNFT = async (req, res) => {
         },
         body: JSON.stringify({
             chain: "MATIC",
-            symbol: "ERC_SYMBOL",
-            fromPrivateKey: process.env.PRIVATE_KEY,
-            to: "0x9f8f72aa9304c8b593d555f12ef6589cc3a579a2",
-            metadata: req.body.metadataLink,
-            feeCurrency: "MATIC",
+            tokenId: "2", //token no of the asset
+            to: req.body.account, //change to receipient address
+            contractAddress: process.env.SMART_CONTRACT_ADDRESS, //the NFT smart contract
+            url: process.env.METADATA_LINK, //metadata url with ipfs
+            provenance: true,
+            fromPrivateKey: process.env.PRIVATE_KEY, //gas fees paid from here, usually the one who is minting - user
         }),
     });
 
     const data = await response.json();
+
+    console.log(data);
 
     return res.json(data);
 };

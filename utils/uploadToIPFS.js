@@ -5,8 +5,8 @@ require("dotenv").config();
 
 const uploadToIPFS = async () => {
     //get uploaded file buffer from memory
-    //const image = req.file.buffer;
-    const image = await fs.readFile(path.join(__dirname, "qoddi.jpg"));
+    //const image = req.file.buffer;n
+    const image = await fs.readFile(path.join(__dirname, "logo.svg"));
 
     //upload image file to IPFS
     const { ipfsHash } = await ipfsUpload(image, "image/png");

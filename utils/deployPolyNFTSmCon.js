@@ -11,10 +11,10 @@ const deployPolyNFTSmCon = async () => {
             chain: "MATIC",
             name: "Qoddi NFT Token",
             publicMint: true,
-            symbol: "ERC_SYMBOL",
-            fromPrivateKey: process.env.PRIVATE_KEY,
+            symbol: "QTC",
             provenance: true,
             feeCurrency: "MATIC",
+            signatureId: process.env.SIGNATURE_ID,
         }),
     });
     const data = await response.json();
