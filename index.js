@@ -1,12 +1,13 @@
-const express = require("express");
-const { mintNFT } = require("./utils/mintNFT");
+import express from "express";
+import mintNFT from "./mintNFT.js";
 const app = express();
-const cors = require("cors");
+import cors from "cors";
 //enable cors
 app.use(cors());
 
 //dotenv config
-require("dotenv").config();
+import { config } from "dotenv";
+config();
 
 //body parser
 app.use(express.json());
