@@ -1,5 +1,5 @@
 const express = require("express");
-const mintNFT = require("./utils/mintNFT");
+const { mintNFT } = require("./utils/mintNFT");
 const app = express();
 const cors = require("cors");
 //enable cors

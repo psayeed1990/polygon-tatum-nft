@@ -1,6 +1,10 @@
 const fetch = require("node-fetch");
+const uuid = require("uuid");
 
-const mintNFT = async (req, res) => {
+exports.mintNFT = async (req, res) => {
+    //generate a random UUID v4
+    const signkey = uuid.v4();
+
     const response = await fetch("https://api-eu1.tatum.io/v3/nft/mint", {
         method: "POST",
         headers: {
@@ -24,5 +28,3 @@ const mintNFT = async (req, res) => {
 
     return res.json(data);
 };
-
-module.exports = mintNFT;
