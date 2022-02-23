@@ -1,4 +1,4 @@
-import fetch from "node-fetch";
+import axios from "axios";
 import { v4 } from "uuid";
 
 const mintNFT = async (req, res) => {
@@ -6,13 +6,9 @@ const mintNFT = async (req, res) => {
     const signkey = v4();
 
     //sign a pending transaction
-    const response = await fetch("https://api-eu1.tatum.io/v3/nft/mint", {
-        method: "POST",
-        headers: {
-            "x-api-key": process.env.TATUM_API_KEY,
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
+    const response = await axios.post(
+        "https://api-eu1.tatum.io/v3/nft/mint",
+        {
             chain: "MATIC",
             tokenId: "2", //token no of the asset
             to: req.body.account, //change to receipient address
@@ -20,25 +16,30 @@ const mintNFT = async (req, res) => {
             url: process.env.METADATA_LINK, //metadata url with ipfs
             //fromPrivateKey: process.env.PRIVATE_KEY, //gas fees paid from here, usually the one who is minting - user
             signatureId: signkey,
-        }),
-    });
+        },
+        {
+            headers: {
+                "x-api-key": process.env.TATUM_API_KEY,
+                "Content-Type": "application/json",
+            },
+        }
+    );
 
     //pending transaction parsed from response
-    const mintedhang = await response.json();
+    const { signatureId } = response.data;
 
-    const transaction = await fetch(
-        `https://api-eu1.tatum.io/v3/kms/${mintedhang.signatureId}`,
+    const transaction = await axios.get(
+        `https://api-eu1.tatum.io/v3/kms/${signatureId}`,
         {
-            method: "GET",
             headers: {
                 "x-api-key": process.env.TATUM_API_KEY,
             },
         }
     );
 
-    const { serializedTransaction } = await transaction.json();
-
-    const data = JSON.parse(serializedTransaction);
+    console.log(transaction.data);
+    const data = JSON.parse(transaction.data.serializedTransaction);
+    console.log(data);
 
     //add account to the transaction
     data.from = req.body.account;
